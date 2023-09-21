@@ -43,13 +43,13 @@ inoremap <C-l> <right>
 "----------------------------------------------------------------------
 " 命令模式的快速移动
 "----------------------------------------------------------------------
-cnoremap <c-h> <left>
+"cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 cnoremap <c-l> <right>
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
-cnoremap <c-f> <c-d>
+cnoremap <c-f> <c-right>
 cnoremap <c-b> <left>
 cnoremap <c-d> <del>
 cnoremap <c-_> <c-k>
