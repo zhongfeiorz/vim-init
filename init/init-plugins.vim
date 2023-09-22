@@ -173,6 +173,18 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" ALT_+/- 用于按分隔符扩大缩小 v 选区
 	map <m-=> <Plug>(expand_region_expand)
 	map <m--> <Plug>(expand_region_shrink)
+
+	" 快速删除/替换圆括号、中括号、引号、XML 标记等等
+	Plug 'tpope/vim-surround'
+
+	" 代码对齐线
+	Plug 'Yggdroot/indentLine'
+
+	" 开启/关闭对齐线
+	nmap <leader>i :IndentLinesToggle<CR>
+
+	" 设置终端对齐线颜色，如果不喜欢可以将其注释掉采用默认颜色
+	let g:indentLine_color_term = 239
 endif
 
 

@@ -42,6 +42,28 @@ set ttimeoutlen=50
 set ruler
 
 
+":set nu! :set rnu! 命令就像一个开关
+"如果已经显示了行号，并且再次使用此命令，它将停止显示行号
+
+"显示行号
+set nu
+
+"显示相对行号
+"set rnu
+
+"开启鼠标 a:所有模式  v：可视模式
+"set mouse=v
+
+" 打开下划线显示
+set cursorline
+
+" 关闭下划线显示
+"set nocursorline
+
+"设置 <leader> 为 空格键
+let mapleader = "\<space>"
+
+
 "----------------------------------------------------------------------
 " 搜索设置
 "----------------------------------------------------------------------
@@ -116,6 +138,11 @@ set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m
 " 设置分隔符可视
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 
+"设置颜色主题
+"colorscheme desert
+
+" 设置搜索高亮颜色, 文本中取消高亮, 输入  :noh
+"hi Search  term=reverse ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
 
 " 设置 tags：当前文件所在目录往上向根目录搜索直到碰到 .tags 文件
 " 或者 Vim 当前目录包含 .tags 文件
@@ -129,6 +156,18 @@ set formatoptions+=B
 
 " 文件换行符，默认使用 unix 换行符
 set ffs=unix,dos,mac
+
+"change word to uppercase, I love this very much
+inoremap <C-u> <esc>gUiwea
+
+" set jj is Esc in insert mode
+inoremap jj <Esc>
+
+" 打开/关闭 list
+noremap <silent> <leader>l :set list!<cr>
+
+" 打开/关闭 number
+noremap <silent> <leader>m :set nu!<cr>
 
 
 "----------------------------------------------------------------------
