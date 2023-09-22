@@ -139,6 +139,7 @@ noremap <silent> <leader>tq :tabclose<cr>
 noremap <silent> <leader>tn :tabnext<cr>
 noremap <silent> <leader>tp :tabprev<cr>
 noremap <silent> <leader>to :tabonly<cr>
+noremap <silent> <leader>ta :tabdo :q<cr>
 
 
 " 左移 tab
