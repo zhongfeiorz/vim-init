@@ -554,7 +554,7 @@ let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone,noselect
 
 " 根据实际文件位置修改
-let g:ycm_global_ycm_extra_conf='/usr/lib/ycmd/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 
 " noremap <c-z> <NOP>
 
