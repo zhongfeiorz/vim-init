@@ -213,9 +213,9 @@ if index(g:bundle_group, 'tags') >= 0
 	let g:gutentags_modules = [] 
 
 	" 如果有 ctags 可执行就允许动态生成 ctags 文件
-	if executable('ctags')
-		let g:gutentags_modules += ['ctags']
-	endif
+	" if executable('ctags')
+	" 	let g:gutentags_modules += ['ctags']
+	" endif
 
 	" 如果有 gtags 可执行就允许动态生成 gtags 数据库
 	if executable('gtags') && executable('gtags-cscope')
