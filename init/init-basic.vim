@@ -41,6 +41,8 @@ set ttimeoutlen=50
 " 显示光标位置
 set ruler
 
+" 设置输入单行字符长度
+set textwidth=1000
 
 ":set nu! :set rnu! 命令就像一个开关
 "如果已经显示了行号，并且再次使用此命令，它将停止显示行号
@@ -167,7 +169,10 @@ inoremap jj <Esc>
 noremap <silent> <leader>l :set list!<cr>
 
 " 打开/关闭 number
-noremap <silent> <leader>m :set nu!<cr>
+noremap <silent> <leader>n :set nu!<cr>
+
+" 打开/关闭 cursorline
+noremap <silent> \cu :set cursorline!<cr>
 
 
 "----------------------------------------------------------------------

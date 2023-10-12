@@ -323,10 +323,10 @@ if index(g:bundle_group, 'nerdtree') >= 0
 	let g:NERDTreeMinimalUI = 1
 	let g:NERDTreeDirArrows = 1
 	let g:NERDTreeHijackNetrw = 0
-	noremap <space>nn :NERDTree<cr>
-	noremap <space>no :NERDTreeFocus<cr>
-	noremap <space>nm :NERDTreeMirror<cr>
-	noremap <space>nt :NERDTreeToggle<cr>
+	noremap \nn :NERDTree<cr>
+	noremap \no :NERDTreeFocus<cr>
+	noremap \nm :NERDTreeMirror<cr>
+	noremap \nt :NERDTreeToggle<cr>
 endif
 
 
@@ -441,17 +441,29 @@ if index(g:bundle_group, 'leaderf') >= 0
 		" CTRL+n 打开最近使用的文件 MRU，进行模糊匹配
 		noremap <c-n> :LeaderfMru<cr>
 
+		" use ctags
 		" ALT+p 打开函数列表，按 i 进入模糊匹配，ESC 退出
-		noremap <m-p> :LeaderfFunction!<cr>
+		" noremap <m-p> :LeaderfFunction!<cr>
 
 		" ALT+SHIFT+p 打开 tag 列表，i 进入模糊匹配，ESC退出
 		noremap <m-P> :LeaderfBufTag!<cr>
 
-		" ALT+n 打开 buffer 列表进行模糊匹配
-		noremap <m-n> :LeaderfBuffer<cr>
-
-		" ALT+m 全局 tags 模糊匹配
+		" ALT+m 当前文件 tags 模糊匹配
 		noremap <m-m> :LeaderfTag<cr>
+
+		" use gtags
+		" ALT+p 打开当前文件 tag 列表，按 tab 进入 normal 模式，ESC 退出
+		noremap <m-p> :Leaderf gtags --current-buffer<cr>
+
+		" should use `Leaderf gtags --update` first
+		" 自动生成 gtags 在 ~/.vim/cache/LeaderF/gtags 目录
+		let g:Lf_GtagsAutoGenerate = 0
+		noremap <leader>fu :<C-U><C-R>=printf("Leaderf! gtags --update")<CR><CR>
+		noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+		noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+		noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+		noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+		noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
 		" 最大历史文件保存 2048 个
 		let g:Lf_MruMaxFiles = 2048
@@ -540,6 +552,9 @@ call plug#end()
 "----------------------------------------------------------------------
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
+
+" vim 启动不加载 ycm 0:not 1:load default=1
+" let g:loaded_youcompleteme = 0
 
 " 禁用预览功能：扰乱视听
 let g:ycm_add_preview_to_completeopt = 0
