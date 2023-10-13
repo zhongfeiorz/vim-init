@@ -195,6 +195,9 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'tags') >= 0
 
+	" 设置 gtags quickfix 高度
+	let g:gutentags_plus_height = 10
+
 	" 提供 ctags/gtags 后台数据库自动更新功能
 	Plug 'skywind3000/vim-gutentags'
 
