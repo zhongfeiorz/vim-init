@@ -317,7 +317,8 @@ endfunc
 "----------------------------------------------------------------------
 if executable('rg')
 	noremap <silent><F2> :AsyncRun! -cwd=<root> rg -n --no-heading 
-				\ --color never -g *.h -g *.c* -g *.py -g *.js -g *.vim 
+				\ --color never -g '*.h' -g '*.c*' -g '*.py' -g '*.js' -g '*.vim' 
+				\ -g '*.mk' -g '*.bp' 
 				\ <C-R><C-W> "<root>" <cr>
 elseif has('win32') || has('win64')
 	noremap <silent><F2> :AsyncRun! -cwd=<root> findstr /n /s /C:"<C-R><C-W>" 
