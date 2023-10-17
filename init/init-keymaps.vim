@@ -230,7 +230,7 @@ endif
 "----------------------------------------------------------------------
 
 " 自动打开 quickfix window ，高度为 6
-let g:asyncrun_open = 6
+let g:asyncrun_open = 10
 
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
