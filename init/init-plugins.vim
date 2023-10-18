@@ -185,6 +185,9 @@ if index(g:bundle_group, 'enhanced') >= 0
 	" 快速删除/替换圆括号、中括号、引号、XML 标记等等
 	Plug 'tpope/vim-surround'
 
+	" 增强 . 功能键，可用于 surround unimpaired 等插件
+	Plug 'tpope/vim-repeat'
+
 	" 代码对齐线
 	Plug 'Yggdroot/indentLine'
 
