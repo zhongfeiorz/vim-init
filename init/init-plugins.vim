@@ -122,6 +122,14 @@ if index(g:bundle_group, 'basic') >= 0
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
+	" vim-preview 配置
+	autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+	autocmd FileType qf nnoremap <silent> <leader>p :PreviewClose<cr>
+	noremap <m-u> :PreviewScroll -1<cr>
+	noremap <m-d> :PreviewScroll +1<cr>
+	inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+	inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+
 	" 默认不显示 startify
 	let g:startify_disable_at_vimenter = 1
 	let g:startify_session_dir = '~/.vim/session'

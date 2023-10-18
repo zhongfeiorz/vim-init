@@ -118,7 +118,7 @@ endif
 "----------------------------------------------------------------------
 augroup VimInitStyle
 	au!
-	au FileType qf setlocal nonumber
+	au FileType qf setlocal number
 augroup END
 
 
