@@ -65,15 +65,6 @@ set cursorline
 "设置 <leader> 为 空格键
 let mapleader = "\<space>"
 
-" 设置 leader+v 选择到当前行尾
-noremap <silent>  <leader>v vg_
-
-" 设置 leader+w quick save
-noremap <silent>  <leader>w :w<cr>_
-
-" 设置 leader+e 开关 expandtab
-noremap <silent> <leader>e :set noet!<cr>
-
 
 "----------------------------------------------------------------------
 " 搜索设置
@@ -183,6 +174,20 @@ noremap <silent> <leader>n :set nu!<cr>
 " 打开/关闭 cursorline
 noremap <silent> \cu :set cursorline!<cr>
 
+" 关闭 number, side bar, list
+noremap <silent> <leader>mc :setlocal nonumber signcolumn=no nolist<cr>
+
+" 打开 number, side bar, list
+noremap <silent> <leader>md :setlocal number signcolumn=yes list<cr>
+
+" 设置 leader+v 选择到当前行尾
+noremap <silent>  <leader>v vg_
+
+" 设置 leader+w quick save
+noremap <silent>  <leader>w :w<cr>_
+
+" 设置 leader+e 开关 expandtab
+noremap <silent> <leader>e :set noet!<cr>
 
 "----------------------------------------------------------------------
 " 设置代码折叠
