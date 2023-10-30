@@ -240,7 +240,7 @@ function! Zoom ()
     endif
 endfunction
 
-nmap <leader>z :call Zoom()<CR>
+nmap <silent> <leader>z :call Zoom()<CR>
 
 
 "----------------------------------------------------------------------

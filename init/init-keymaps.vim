@@ -329,6 +329,7 @@ else
 	noremap <silent><F2> :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W> 
 				\ --include='*.h' --include='*.c*' --include='*.py' 
 				\ --include='*.js' --include='*.vim'
+				\ --include='*.mk' --include='*.bp'
 				\ '<root>' <cr>
 endif
 
