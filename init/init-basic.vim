@@ -174,12 +174,6 @@ noremap <silent> <leader>n :set nu!<cr>
 " 打开/关闭 cursorline
 noremap <silent> \cu :set cursorline!<cr>
 
-" 关闭 number, side bar, list
-noremap <silent> <leader>mc :setlocal nonumber signcolumn=no nolist<cr>
-
-" 打开 number, side bar, list
-noremap <silent> <leader>md :setlocal number signcolumn=yes list<cr>
-
 " 设置 leader+v 选择到当前行尾
 noremap <silent>  <leader>v vg_
 
@@ -231,24 +225,41 @@ set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 " 窗口最大化
 "----------------------------------------------------------------------
 function! Zoom ()
-  " check if is the zoomed state (tabnumber > 1 && window == 1)
-  if tabpagenr('$') > 1 && tabpagewinnr(tabpagenr(), '$') == 1
-  ¦   let l:cur_winview = winsaveview()
-  ¦   let l:cur_bufname = bufname('')
-  ¦   tabclose
+    " check if is the zoomed state (tabnumber > 1 && window == 1)
+    if tabpagenr('$') > 1 && tabpagewinnr(tabpagenr(), '$') == 1
+        let l:cur_winview = winsaveview()
+        let l:cur_bufname = bufname('')
+        tabclose
 
-  ¦   " restore the view
-  ¦   if l:cur_bufname == bufname('')
-  ¦   ¦   call winrestview(cur_winview)
-  ¦   endif
-  else
-  ¦   tab split
-  endif
+        " restore the view
+        if l:cur_bufname == bufname('')
+            call winrestview(cur_winview)
+        endif
+    else
+        tab split
+    endif
 endfunction
 
 nmap <leader>z :call Zoom()<CR>
 
 
+"----------------------------------------------------------------------
+" 打开/关闭 number, side bar, indent
+"----------------------------------------------------------------------
+function! Open_num_bar_indent ()
+    exec 'setlocal number signcolumn=yes list'
+    exec 'IndentLinesEnable'
+endfunction
 
+function! Close_num_bar_indent ()
+    exec 'setlocal nonumber signcolumn=no nolist'
+    exec 'IndentLinesDisable'
+endfunction
+
+" 打开 number, side bar, list
+noremap <silent> <leader>md :call Open_num_bar_indent()<cr>
+
+" 关闭 number, side bar, list
+noremap <silent> <leader>mc :call Close_num_bar_indent()<cr>
 
 
