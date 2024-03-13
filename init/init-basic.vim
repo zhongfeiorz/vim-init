@@ -263,3 +263,10 @@ noremap <silent> <leader>md :call Open_num_bar_indent()<cr>
 noremap <silent> <leader>mc :call Close_num_bar_indent()<cr>
 
 
+"----------------------------------------------------------------------
+" insert current time
+"----------------------------------------------------------------------
+iab xt <c-r>=strftime("%Y-%m-%d %H:%M:%S")
+
+
+
