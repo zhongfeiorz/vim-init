@@ -183,6 +183,9 @@ noremap <silent>  <leader>w :w<cr>_
 " 设置 leader+e 开关 expandtab
 noremap <silent> <leader>e :set noet!<cr>
 
+" 设置 leader+q 开关 退出
+noremap <silent> <leader>q :q<cr>
+
 "----------------------------------------------------------------------
 " 设置代码折叠
 "----------------------------------------------------------------------
