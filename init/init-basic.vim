@@ -23,6 +23,9 @@ set bs=eol,start,indent
 " 自动缩进
 set autoindent
 
+" 丢失buffer内容时，vim 会在操作之前执行 :write, 不是实时随时随地保存
+set autowrite
+
 " 打开 C/C++ 语言缩进优化
 set cindent
 
@@ -57,7 +60,7 @@ set nu
 "set mouse=v
 
 " 打开下划线显示
-set cursorline
+" set cursorline
 
 " 关闭下划线显示
 "set nocursorline
@@ -166,13 +169,10 @@ inoremap <C-u> <esc>gUiwea
 inoremap jj <Esc>
 
 " 打开/关闭 list
-noremap <silent> <leader>l :set list!<cr>
+" noremap <silent> <leader>l :set list!<cr>
 
 " 打开/关闭 number
-noremap <silent> <leader>n :set nu!<cr>
-
-" 打开/关闭 cursorline
-noremap <silent> \cu :set cursorline!<cr>
+" noremap <silent> <leader>n :set nu!<cr>
 
 " 设置 leader+v 选择到当前行尾
 noremap <silent>  <leader>v vg_

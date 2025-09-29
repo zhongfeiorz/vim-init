@@ -192,7 +192,7 @@ if index(g:bundle_group, 'enhanced') >= 0
 	Plug 'Yggdroot/indentLine'
 
 	" 开启/关闭对齐线
-	nmap <leader>i :IndentLinesToggle<CR>
+	" nmap <leader>i :IndentLinesToggle<CR>
 
 	" 设置终端对齐线颜色，如果不喜欢可以将其注释掉采用默认颜色
 	let g:indentLine_color_term = 239
@@ -653,6 +653,7 @@ call plug#end()
 
 " vim 启动不加载 ycm 0:not 1:load default=1
 " let g:loaded_youcompleteme = 0
+
 
 " 禁用预览功能：扰乱视听
 let g:ycm_add_preview_to_completeopt = 0
