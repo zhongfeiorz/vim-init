@@ -96,8 +96,23 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
 	\ gui=NONE guifg=DarkGrey guibg=NONE
 
 " 修正补全目录的色彩：默认太难看
-hi! Pmenu guibg=gray guifg=black ctermbg=gray ctermfg=black
+" hi! Pmenu guibg=gray guifg=black ctermbg=gray ctermfg=black
+" hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
+
+" modify for which key
+hi! Pmenu guibg=gray guifg=black ctermbg=238 ctermfg=180
 hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
+
+" 解除 link，强制定义 which-key 组
+hi! clear WhichKey
+hi! clear WhichKeyDesc
+hi! clear WhichKeyGroup
+hi! clear WhichKeySeperator
+" set color, WhichKey:blue Desc:yellow Group:purple Seperator:green
+highlight WhichKey          ctermfg=75   guifg=#569CD6 gui=bold
+highlight WhichKeyDesc      ctermfg=180  guifg=#DCDCAA
+highlight WhichKeyGroup     ctermfg=176  guifg=#C586C0 gui=bold
+highlight WhichKeySeperator ctermfg=71   guifg=#6A9955
 
 
 "----------------------------------------------------------------------

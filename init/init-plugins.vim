@@ -16,7 +16,7 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
-	let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['leaderf', 'vim-which-key']
 endif
 
 
@@ -437,6 +437,90 @@ if index(g:bundle_group, 'echodoc') >= 0
 	let g:echodoc#enable_at_startup = 1
 endif
 
+"----------------------------------------------------------------------
+" vim-which-key：display vim key binding
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'vim-which-key') >= 0
+    " On-demand lazy load
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+    let g:maplocalleader = ','
+    nnoremap <silent> <leader>       :<c-u>WhichKey '<Space>'<CR>
+    vnoremap <silent> <leader>       :<c-u>WhichKeyVisual '<Space>'<CR>
+    nnoremap <silent> <localleader>  :<c-u>WhichKey ','<CR>
+
+    set timeoutlen=500	" By default timeoutlen is 1000 ms
+
+
+    " Binding key and dictionary, triggered on call
+    " call which_key#register('<Space>', "g:which_key_map")
+    autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")
+
+    " Define prefix dictionary
+    let g:which_key_map =  {}
+
+    " Second level dictionaries:
+    " 'name' is a special field. It will define the name of the group, e.g., leader-f is the "+file" group.
+    " Unnamed groups will show a default empty string.
+
+    " =======================================================
+    " Create menus based on existing mappings
+    " =======================================================
+    " You can pass a descriptive text to an existing mapping.
+    let g:which_key_map.b = { 'name' : '+buffer' }
+    let g:which_key_map.c = { 'name' : '+gscope' }
+    let g:which_key_map.f = { 'name' : '+leaderF' }
+    let g:which_key_map.f.d = 'Jump to definition of current word'
+    let g:which_key_map.f.n = 'Jump to next tag'
+    let g:which_key_map.f.o = 'Back to previous search result'
+    let g:which_key_map.f.p = 'Jump to previous tag'
+    let g:which_key_map.f.r = 'Jump to reference of current word'
+    let g:which_key_map.f.u = 'Update leaderf tags'
+    let g:which_key_map.m = { 'name' : '+mark' }
+    let g:which_key_map.t = { 'name' : '+tab' }
+
+    " =======================================================
+    " Create menus not based on existing mappings:
+    " =======================================================
+    " Provide commands(ex-command, <Plug>/<C-W>/<C-d> mapping, etc.) and descriptions for existing mappings
+    " let g:which_key_map.b = {
+    "       \ 'name' : '+buffer' ,
+    "       \ '1' : ['b1'        , 'buffer 1']        ,
+    "       \ '2' : ['b2'        , 'buffer 2']        ,
+    "       \ 'd' : ['bd'        , 'delete-buffer']   ,
+    "       \ 'f' : ['bfirst'    , 'first-buffer']    ,
+    "       \ 'l' : ['blast'     , 'last-buffer']     ,
+    "       \ 'n' : ['bnext'     , 'next-buffer']     ,
+    "       \ 'p' : ['bprevious' , 'previous-buffer'] ,
+    "       \ '?' : ['buffers'   , 'fzf-buffer']      ,
+    "       \ }
+
+    " let g:which_key_map.f = {
+    "       \ 'name' : '+file' ,
+    "       \ 'n' : ['fn' , 'File Name to Clipboard'] ,
+    "       \ 'p' : ['fp' , 'Path Name to Clipboard'] ,
+    "       \ }
+
+    " let g:which_key_map.F = {
+    "       \ 'name' : '+Function-Key' ,
+    "       \ 'F1'   : ['help'         , 'help']        ,
+    "       \ 'F2'   : ['set nowrap'   , 'set nowrap']        ,
+    "       \ 'F3'   : ['Vex'          , 'Vex']   ,
+    "       \ 'F4'   : ['bfirst'       , 'first-buffer']    ,
+    "       \ 'F5'   : ['Startify'     , 'home-buffer']     ,
+    "       \ 'F6'   : ['call ToggleCursor()'     , 'ToggleCursorLine']     ,
+    "       \ 'F7'   : ['hi'           , 'highlight']     ,
+    "       \ 'F8'   : ['tabs'         , 'Show all buffers in tabs'] ,
+    "       \ 'F9'   : ['HTML Escape'  , 'Escape Character Entity)'] ,
+    "       \ 'F10'  : ['gJ'           , 'join lines without producing a space'] ,
+    "       \ 'C-F1' : ['set go-=m'    , 'Show Menu']      ,
+    "       \ 'C-F2' : ['set go-=T'    , 'Show Toolbar']      ,
+    "       \ 'C-F3' : ['set go-=r'    , 'Show Scroolba']      ,
+    "       \ 'C-Ins' : ['tabnew'      , 'tabnew']      ,
+    "       \ 'C-Del' : ['tabclose'    , 'tabclose']      ,
+    "       \ }
+
+endif
 
 "----------------------------------------------------------------------
 " LeaderF：CtrlP / FZF 的超级代替者，文件模糊匹配，tags/函数名 选择
