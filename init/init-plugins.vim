@@ -654,7 +654,6 @@ call plug#end()
 " vim 启动不加载 ycm 0:not 1:load default=1
 " let g:loaded_youcompleteme = 0
 
-
 " 禁用预览功能：扰乱视听
 let g:ycm_add_preview_to_completeopt = 0
 

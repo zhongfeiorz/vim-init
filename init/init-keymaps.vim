@@ -308,7 +308,6 @@ function! ExecuteFile()
 endfunc
 
 
-
 "----------------------------------------------------------------------
 " F2 在项目目录下 Grep 光标下单词，默认 C/C++/Py/Js ，扩展名自己扩充
 " 支持 rg/grep/findstr ，其他类型可以自己扩充
@@ -333,4 +332,61 @@ else
 				\ '<root>' <cr>
 endif
 
+
+"----------------------------------------------------------------------
+" 不是在当前目录 grep，而是会去到当前文件所属的项目目录 project root
+" 下面进行 grep，这样能方便的对相关项目进行搜索
+" 查看解析的 root 目录,执行 :echo asyncrun#get_root('%')
+"----------------------------------------------------------------------
+function! Rg_Search_Project()
+  let l:pattern = input("Search: ")
+  if l:pattern != ''
+      " let l:root = asyncrun#get_root('%')
+      execute "AsyncRun! -cwd=<root> rg -n -i --no-heading --color never -g '*.h' -g '*.c*' -g '*.py' -g '*.js' -g '*.vim' -g '*.mk' -g '*.bp' -g '*.log' " .
+            \ shellescape(l:pattern) . " <root>"
+  endif
+endfunction
+
+function! Grep_Search_Project()
+  let l:pattern = input('Search: ')
+  if l:pattern != ''
+    execute 'AsyncRun! -cwd=<root> grep -n -i -R --exclude-dir=.git' .
+          \ " --include='*.h' --include='*.c*' --include='*.py'" .
+          \ " --include='*.js' --include='*.vim'" .
+          \ " --include='*.mk' --include='*.bp' --include='*.log'" .
+          \ ' ' . shellescape(l:pattern) . ' <root>'
+  endif
+endfunction
+
+if executable('rg')
+    nnoremap <silent> <leader>sp :<c-u> call Rg_Search_Project()<CR>
+else
+    nnoremap <silent> <leader>sp :<c-u> call Grep_Search_Project()<CR>
+endif
+
+
+"----------------------------------------------------------------------
+" 在当前文件 grep, 下面进行 grep，这样能方便的对相关项目进行搜索
+"----------------------------------------------------------------------
+function! Rg_Search_Current()
+  let l:pattern = input('Search: ')
+  if l:pattern != ''
+    execute "AsyncRun! rg -n -i --no-heading --color never "
+        \ . shellescape(l:pattern) . " " . expand('%:p')
+  endif
+endfunction
+
+function! Grep_Search_Current()
+  let l:pattern = input('Search: ')
+  if l:pattern != ''
+    execute 'AsyncRun! grep -n -i -R '
+        \ . shellescape(l:pattern) . " " . expand('%:p')
+  endif
+endfunction
+
+if executable('rg')
+    nnoremap <silent> <leader>sc :<c-u> call Rg_Search_Current()<CR>
+else
+    nnoremap <silent> <leader>sc :<c-u> call Grep_Search_Current()<CR>
+endif
 
