@@ -62,7 +62,7 @@ noremap <silent><leader>1 1gt<cr>
 noremap <silent><leader>2 2gt<cr>
 noremap <silent><leader>3 3gt<cr>
 noremap <silent><leader>4 4gt<cr>
-" noremap <silent><leader>5 5gt<cr>
+noremap <silent><leader>5 5gt<cr>
 " noremap <silent><leader>6 6gt<cr>
 " noremap <silent><leader>7 7gt<cr>
 " noremap <silent><leader>8 8gt<cr>
@@ -366,7 +366,7 @@ endif
 
 
 "----------------------------------------------------------------------
-" 在当前文件下进行 grep，这样能方便的文件内容进行搜索并展示
+" 在当前文件下进行 grep，这样能方便的对文件内容进行搜索并展示
 "----------------------------------------------------------------------
 function! Rg_Search_Current()
   let l:pattern = input('Search: ')
@@ -389,4 +389,43 @@ if executable('rg')
 else
     nnoremap <silent> <leader>sc :<c-u> call Grep_Search_Current()<CR>
 endif
+
+
+"----------------------------------------------------------------------
+" quickfix shortcut
+"----------------------------------------------------------------------
+" 一键切换到 Quickfix 窗口,再次按切回上一个窗口
+let g:last_win_nr = 0
+
+function! ToggleQuickfixFocus()
+  " 当前窗口号
+  let l:cur_win = winnr()
+
+  " 查找 Quickfix 窗口号
+  let l:qf_win = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") ==# "quickfix"')
+
+  if empty(l:qf_win)
+    " 没有 Quickfix 窗口 → 打开并切换
+    return
+    " copen
+    " wincmd w
+  else
+    if l:cur_win == l:qf_win[0]
+      " 光标已在 Quickfix，尝试切回上一个窗口
+      if g:last_win_nr != 0 && g:last_win_nr <= winnr('$')
+        exec g:last_win_nr . "wincmd w"
+      endif
+    else
+      " 光标不在 Quickfix → 切到 Quickfix，并保存当前窗口号
+      let g:last_win_nr = l:cur_win
+      exec l:qf_win[0] . "wincmd w"
+    endif
+  endif
+endfunction
+
+nnoremap <silent> <localleader>q :call ToggleQuickfixFocus()<cr>
+nnoremap <silent> <localleader>c :cclose<cr>
+nnoremap <silent> <localleader>o :copen<cr>
+nnoremap <silent> <localleader>n :cnext<cr>
+nnoremap <silent> <localleader>p :cprevious<cr>
 

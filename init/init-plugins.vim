@@ -135,7 +135,7 @@ if index(g:bundle_group, 'basic') >= 0
 	let g:startify_session_dir = '~/.vim/session'
 
 	" 使用 <space>ha 清除 errormarker 标注的错误
-	noremap <silent><space>ha :RemoveErrorMarkers<cr>
+	noremap <silent><localleader>r :RemoveErrorMarkers<cr>
 
 	" signify 调优
 	let g:signify_vcs_list = ['git', 'svn']
@@ -444,10 +444,10 @@ if index(g:bundle_group, 'vim-which-key') >= 0
     " On-demand lazy load
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
-    let g:maplocalleader = ','
     nnoremap <silent> <leader>       :<c-u>WhichKey '<Space>'<CR>
     vnoremap <silent> <leader>       :<c-u>WhichKeyVisual '<Space>'<CR>
     nnoremap <silent> <localleader>  :<c-u>WhichKey ','<CR>
+    vnoremap <silent> <localleader>  :<c-u>WhichKeyVisual ','<CR>
 
     set timeoutlen=500	" By default timeoutlen is 1000 ms
 
@@ -478,11 +478,34 @@ if index(g:bundle_group, 'vim-which-key') >= 0
     let g:which_key_map.f.u = 'Update leaderf tags'
     let g:which_key_map.m = { 'name' : '+mark' }
     let g:which_key_map.t = { 'name' : '+tab' }
+    let g:which_key_map.s = { 'name' : '+search' }
+
+    " =======================================================
+    " hide a mapping from the menu set it’s description to 'which_key_ignore'
+    " =======================================================
+    let g:which_key_map.1 = 'which_key_ignore'
+    let g:which_key_map.2 = 'which_key_ignore'
+    let g:which_key_map.3 = 'which_key_ignore'
+    let g:which_key_map.4 = 'which_key_ignore'
+    let g:which_key_map.5 = 'which_key_ignore'
+    let g:which_key_map.d = 'which_key_ignore'
 
     " =======================================================
     " Create menus not based on existing mappings:
     " =======================================================
     " Provide commands(ex-command, <Plug>/<C-W>/<C-d> mapping, etc.) and descriptions for existing mappings
+    let g:which_key_map.w = {
+          \ 'name' : '+windows' ,
+          \ 'w' : ['<C-W>w'     , 'other-window']          ,
+          \ 'c' : ['<C-W>c'     , 'delete-window']         ,
+          \ 's' : ['<C-W>s'     , 'split-window-below']    ,
+          \ 'v' : ['<C-W>v'     , 'split-window-right']    ,
+          \ 'h' : ['<C-W>H'     , 'window move left']      ,
+          \ 'j' : ['<C-W>J'     , 'window move below']     ,
+          \ 'l' : ['<C-W>L'     , 'window move right']     ,
+          \ 'k' : ['<C-W>K'     , 'window move up']        ,
+          \ '=' : ['<C-W>='     , 'balance-window']        ,
+          \ }
     " let g:which_key_map.b = {
     "       \ 'name' : '+buffer' ,
     "       \ '1' : ['b1'        , 'buffer 1']        ,

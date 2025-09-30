@@ -68,6 +68,8 @@ set nu
 "设置 <leader> 为 空格键
 let mapleader = "\<space>"
 
+"设置 <localleader> 为 逗号
+let maplocalleader = ","
 
 "----------------------------------------------------------------------
 " 搜索设置
@@ -177,8 +179,8 @@ inoremap jj <Esc>
 " 设置 leader+v 选择到当前行尾
 noremap <silent>  <leader>v vg_
 
-" 设置 leader+w quick save
-noremap <silent>  <leader>w :w<cr>_
+" 设置 localleader+w quick save
+noremap <silent>  <localleader>w :w<cr>
 
 " 设置 leader+e 开关 expandtab
 noremap <silent> <leader>e :set noet!<cr>
