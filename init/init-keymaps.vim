@@ -341,20 +341,21 @@ endif
 function! Rg_Search_Project()
   let l:pattern = input("Search: ")
   if l:pattern != ''
-      " let l:root = asyncrun#get_root('%')
-      execute "AsyncRun! -cwd=<root> rg -n -i --no-heading --color never -g '*.h' -g '*.c*' -g '*.py' -g '*.js' -g '*.vim' -g '*.mk' -g '*.bp' -g '*.log' " .
-            \ shellescape(l:pattern) . " <root>"
+      let l:root = asyncrun#get_root('%')
+      execute "AsyncRun! -cwd=" . l:root . " rg -n -i --no-heading --color never -g '*.h' -g '*.c*' -g '*.py' -g '*.js' -g '*.vim' -g '*.mk' -g '*.bp' -g '*.log' " .
+            \ shellescape(l:pattern) . " " . l:root
   endif
 endfunction
 
 function! Grep_Search_Project()
   let l:pattern = input('Search: ')
   if l:pattern != ''
-    execute 'AsyncRun! -cwd=<root> grep -n -i -R --exclude-dir=.git' .
+    let l:root = asyncrun#get_root('%')
+    execute "AsyncRun! -cwd=" . l:root . " grep -n -i -R --exclude-dir=.git" .
           \ " --include='*.h' --include='*.c*' --include='*.py'" .
           \ " --include='*.js' --include='*.vim'" .
           \ " --include='*.mk' --include='*.bp' --include='*.log'" .
-          \ ' ' . shellescape(l:pattern) . ' <root>'
+          \ ' ' . shellescape(l:pattern) . " " . l:root
   endif
 endfunction
 
@@ -366,13 +367,15 @@ endif
 
 
 "----------------------------------------------------------------------
-" 在当前文件下进行 grep，这样能方便的对文件内容进行搜索并展示
+" 在当前文件所在目录下进行 rg/grep，这样能方便的对文件内容进行搜索并展示
 "----------------------------------------------------------------------
 function! Rg_Search_Current()
   let l:pattern = input('Search: ')
+  let current_dir = expand('%:p:h')
   if l:pattern != ''
-    execute "AsyncRun! rg -n -i --no-heading --color never "
-        \ . shellescape(l:pattern) . " " . expand('%:p')
+    execute "AsyncRun! -cwd=" . shellescape(l:current_dir) .
+        \ " rg -n -i --no-heading --color never "
+        \ . shellescape(l:pattern) . " " . l:current_dir
   endif
 endfunction
 
@@ -380,7 +383,7 @@ function! Grep_Search_Current()
   let l:pattern = input('Search: ')
   if l:pattern != ''
     execute 'AsyncRun! grep -n -i -R '
-        \ . shellescape(l:pattern) . " " . expand('%:p')
+        \ . shellescape(l:pattern) . " " . expand('%:p:h')
   endif
 endfunction
 
