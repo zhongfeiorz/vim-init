@@ -162,6 +162,8 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" 快速文件搜索
 	Plug 'junegunn/fzf'
+    " 使用fzf递归搜索当前目录下的文件
+    noremap <leader>ff :FZF<cr>
 
 	" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
 	Plug 'asins/vim-dict'
@@ -476,6 +478,7 @@ if index(g:bundle_group, 'vim-which-key') >= 0
     let g:which_key_map.f.p = 'Jump to previous tag'
     let g:which_key_map.f.r = 'Jump to reference of current word'
     let g:which_key_map.f.u = 'Update leaderf tags'
+    let g:which_key_map.f.f = 'Use FZF to search all files in cur dir'
     let g:which_key_map.m = { 'name' : '+mark' }
     let g:which_key_map.t = { 'name' : '+tab' }
     let g:which_key_map.s = { 'name' : '+search' }
