@@ -202,6 +202,8 @@ inoremap <m-H> <esc><c-w>h
 inoremap <m-L> <esc><c-w>l
 inoremap <m-J> <esc><c-w>j
 inoremap <m-K> <esc><c-w>k
+" 窗口增大 10 列
+noremap <silent><leader><right> :vertical resize +10<CR>
 
 if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 	" vim 8.1 支持 termwinkey ，不需要把 terminal 切换成 normal 模式
