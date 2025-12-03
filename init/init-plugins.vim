@@ -16,7 +16,8 @@
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
-	let g:bundle_group += ['leaderf', 'vim-which-key']
+	let g:bundle_group += ['leaderf', 'vim-which-key', 'leaderf-snippet']
+
 endif
 
 
@@ -666,6 +667,26 @@ if index(g:bundle_group, 'leaderf') >= 0
 	endif
 endif
 
+"----------------------------------------------------------------------
+" Leaderf-snippet：搭配 leaderf 和 UltiSnips 选择常用代码片段
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'leaderf-snippet') >= 0
+    Plug 'skywind3000/Leaderf-snippet'
+
+    " maps
+    inoremap <c-x><c-x> <c-\><c-o>:Leaderf snippet<cr>
+
+    " optional: preview
+    let g:Lf_PreviewResult = get(g:, 'Lf_PreviewResult', {})
+    let g:Lf_PreviewResult.snippet = 1
+
+    " Track the engine
+    Plug 'SirVer/ultisnips'
+    " Snippets are separated from the engine. Add this if you want them:
+    Plug 'honza/vim-snippets'
+
+endif
+
 
 "----------------------------------------------------------------------
 " 结束插件安装
@@ -695,6 +716,9 @@ set completeopt=menu,menuone,noselect
 
 " 根据实际文件位置修改
 let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+
+" 0 = 不询问，直接加载配置, 默认值为 1，表示每次询问
+let g:ycm_confirm_extra_conf = 0
 
 " noremap <c-z> <NOP>
 
