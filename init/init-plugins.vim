@@ -51,8 +51,33 @@ Plug 'justinmk/vim-dirvish'
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
+" markdown 高亮插件
+Plug 'plasticboy/vim-markdown'
+
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
+
+
+"----------------------------------------------------------------------
+" tabular 配置
+"----------------------------------------------------------------------
+nnoremap <silent> <leader>a= :Tabularize /=<CR>
+vnoremap <silent> <leader>a= :Tabularize /=<CR>
+nnoremap <silent> <leader>a: :Tabularize /:\zs<CR>
+vnoremap <silent> <leader>a: :Tabularize /:\zs<CR>
+
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+endfunction
 
 
 "----------------------------------------------------------------------
@@ -446,7 +471,7 @@ endif
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'vim-which-key') >= 0
     " On-demand lazy load
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual', 'WhichKeyVisual!'] }
 
     nnoremap <silent> <leader>       :<c-u>WhichKey '<Space>'<CR>
     vnoremap <silent> <leader>       :<c-u>WhichKeyVisual '<Space>'<CR>
@@ -484,6 +509,7 @@ if index(g:bundle_group, 'vim-which-key') >= 0
     let g:which_key_map.m = { 'name' : '+mark' }
     let g:which_key_map.t = { 'name' : '+tab' }
     let g:which_key_map.s = { 'name' : '+search' }
+    let g:which_key_map.a = { 'name' : '+tabular' }
 
     " =======================================================
     " hide a mapping from the menu set it’s description to 'which_key_ignore'
