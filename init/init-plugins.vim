@@ -51,8 +51,27 @@ Plug 'justinmk/vim-dirvish'
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
-" markdown 高亮插件
-Plug 'plasticboy/vim-markdown'
+" markdown syntax highlight 插件
+Plug 'preservim/vim-markdown'
+
+
+" vim-markdown config start
+" 全局关闭 conceal
+set conceallevel=0
+set concealcursor=
+
+" 关闭 vim-markdown 的 conceal
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+
+" disable folding which make w slow in md file
+let g:vim_markdown_folding_disabled = 1
+
+" vim-markdown config end
+
+
+" markdown preview 插件
+Plug 'iamcco/markdown-preview.nvim'
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
 Plug 'chrisbra/vim-diff-enhanced'
@@ -203,6 +222,8 @@ if index(g:bundle_group, 'enhanced') >= 0
 
 	" 配对括号和引号自动补全
 	Plug 'Raimondi/delimitMate'
+	" delimiteMate 对于 markdown 文件关闭 ` 补全
+	autocmd FileType markdown let b:delimitMate_quotes = "\" '"
 
 	" 提供 gist 接口
 	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
@@ -415,16 +436,38 @@ if index(g:bundle_group, 'ale') >= 0
 	" 允许 airline 集成
 	let g:airline#extensions#ale#enabled = 1
 
+	" 保存时不进行 lint 检查
+	let g:ale_lint_on_save = 0
+
+	" Only run linters named in ale_linters settings.
+	let g:ale_linters_explicit = 1
+
 	" 编辑不同文件类型需要的语法检查器
+	" let g:ale_linters = {
+	" 			\ 'c': ['gcc', 'cppcheck'], 
+	" 			\ 'cpp': ['gcc', 'cppcheck'], 
+	" 			\ 'python': ['flake8', 'pylint'], 
+	" 			\ 'lua': ['luac'], 
+	" 			\ 'go': ['go build', 'gofmt'],
+	" 			\ 'java': ['javac'],
+	" 			\ 'javascript': ['eslint'], 
+	" 			\ }
+    " let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
+
+	" faster config: 去掉慢的 pylint
 	let g:ale_linters = {
-				\ 'c': ['gcc', 'cppcheck'], 
-				\ 'cpp': ['gcc', 'cppcheck'], 
-				\ 'python': ['flake8', 'pylint'], 
-				\ 'lua': ['luac'], 
-				\ 'go': ['go build', 'gofmt'],
-				\ 'java': ['javac'],
-				\ 'javascript': ['eslint'], 
-				\ }
+				\   'c': ['gcc'],
+				\   'cpp': ['gcc'],
+				\   'python': ['flake8'],
+				\   'javascript': ['eslint'],
+				\   'lua': ['luac'],
+				\}
+
+	" 如果没有 Go 项目，就不要加 go build（太慢）
+	" let g:ale_linters['go'] = ['gofmt']
+
+	" do not check txt file, textlint write-good languagetool too slow
+	let g:ale_linters.text = []
 
 
 	" 获取 pylint, flake8 的配置文件，在 vim-init/tools/conf 下面
@@ -446,8 +489,6 @@ if index(g:bundle_group, 'ale') >= 0
 	let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
 	let g:ale_c_cppcheck_options = ''
 	let g:ale_cpp_cppcheck_options = ''
-
-	let g:ale_linters.text = ['textlint', 'write-good', 'languagetool']
 
 	" 如果没有 gcc 只有 clang 时（FreeBSD）
 	if executable('gcc') == 0 && executable('clang')
@@ -700,16 +741,16 @@ if index(g:bundle_group, 'leaderf-snippet') >= 0
     Plug 'skywind3000/Leaderf-snippet'
 
     " maps
-    inoremap <c-x><c-x> <c-\><c-o>:Leaderf snippet<cr>
+    inoremap <m-q><m-q> <c-\><c-o>:Leaderf snippet<cr>
 
-    " optional: preview
+    " optional: preview 0:close preview 1:open (default)
     let g:Lf_PreviewResult = get(g:, 'Lf_PreviewResult', {})
-    let g:Lf_PreviewResult.snippet = 1
+    let g:Lf_PreviewResult.snippet = 0
 
     " Track the engine
     Plug 'SirVer/ultisnips'
-    " Snippets are separated from the engine. Add this if you want them:
-    Plug 'honza/vim-snippets'
+    " Snippets are separated from the engine. Add your snippets:
+    Plug 'zhongfeiorz/vim-snippets'
 
 endif
 
