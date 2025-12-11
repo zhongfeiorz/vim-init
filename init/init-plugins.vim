@@ -17,6 +17,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf', 'vim-which-key', 'leaderf-snippet']
+	let g:bundle_group += ['vim-rooter']
 
 endif
 
@@ -754,6 +755,30 @@ if index(g:bundle_group, 'leaderf-snippet') >= 0
 
 endif
 
+"----------------------------------------------------------------------
+" vim-rooter: 打开文件或目录时，自动切换vim工作目录
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'vim-rooter') >= 0
+    Plug 'airblade/vim-rooter'
+
+    " config
+    " 当发现这些文件时自动识别项目根目录
+    " 定义为 .git .root 所在的目录为根目录
+    " let g:rooter_patterns = ['.git', '.root']
+
+    " 定义为打开文件所在目录为为根目录
+    let g:rooter_patterns = ['*']
+
+    " 打开文件时，当前工作目录自动切换为项目根目录, 默认行为
+    let g:rooter_manual_only = 0
+    " 执行 :lcd %:p:h 切换到文件所在目录,只针对当前窗口
+    let g:rooter_cd_cmd = 'lcd'
+    " 切换目录时显示底行显示
+    let g:rooter_silent_chdir = 1
+    " 防止自动 rooter 影响启动速度（非常常用）
+    let g:rooter_disable_map = 1
+
+endif
 
 "----------------------------------------------------------------------
 " 结束插件安装
